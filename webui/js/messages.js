@@ -810,12 +810,13 @@ function createModernButton(buttonType, handler) {
 function updateButtonState(button, isActive, type, buttonType) {
   const isFixedHeightGlobal = localStorage.getItem('fixedHeight') === 'true';
   if (buttonType === 'height') {
-    // Minimal fix: when fixed height is OFF, use DOM state for active effect
+    // When global fixed height is OFF, determine active state from DOM
     if (!isFixedHeightGlobal) {
       const messageSelector = getMessageSelectorForType(type);
       const firstMsg = document.querySelector(messageSelector);
       if (firstMsg) {
-        isActive = firstMsg.classList.contains('message-compact');
+        // Active (compress icon) when message is expanded
+        isActive = firstMsg.classList.contains('message-expanded');
       }
     }
   }
