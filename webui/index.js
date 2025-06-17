@@ -890,6 +890,10 @@ export const setContext = function (id) {
     // Clear the chat history immediately to avoid showing stale content
     chatHistory.innerHTML = "";
 
+    // Reset per-message preferences on context switch
+    resetMessagePreferences();
+    updateAllButtonStates();
+
     // Update both selected states if Alpine is available
     if (window.Alpine) {
         try {
@@ -1000,6 +1004,15 @@ function updateAllButtonStates() {
                 }
             }
         }
+    });
+}
+
+// Clear per-message preferences from localStorage
+function resetMessagePreferences() {
+    const types = ['agent','response','tool','code_exe','browser','info','warning','error','user','default'];
+    types.forEach(t => {
+        localStorage.removeItem(`msgHidden_${t}`);
+        localStorage.removeItem(`msgFullHeight_${t}`);
     });
 }
 
