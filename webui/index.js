@@ -712,8 +712,10 @@ window.pauseAgent = async function (paused) {
 
 window.resetChat = async function (ctxid=null) {
     try {
+        resetMessagePreferences();
         const resp = await sendJsonData("/chat_reset", { "context": ctxid === null ? context : ctxid });
         if (ctxid === null) updateAfterScroll();
+        updateAllButtonStates();
     } catch (e) {
         window.toastFetchError("Error resetting chat", e);
     }
@@ -721,8 +723,10 @@ window.resetChat = async function (ctxid=null) {
 
 window.newChat = async function () {
     try {
+        resetMessagePreferences();
         setContext(generateGUID());
-        updateAfterScroll()
+        updateAfterScroll();
+        updateAllButtonStates();
     } catch (e) {
         window.toastFetchError("Error creating new chat", e)
     }
@@ -1003,6 +1007,14 @@ function updateAllButtonStates() {
     });
 }
 
+function resetMessagePreferences() {
+    const types = ['agent','response','tool','code_exe','browser','info','warning','error','user','default'];
+    types.forEach(t => {
+        localStorage.removeItem(`msgHidden_${t}`);
+        localStorage.removeItem(`msgFullHeight_${t}`);
+    });
+}
+
 window.nudge = async function () {
     try {
         const resp = await sendJsonData("/nudge", { ctxid: getContext() });
@@ -1055,6 +1067,8 @@ document.addEventListener('DOMContentLoaded', () => {
     toggleDarkMode(isDarkMode);
     const isFixed = localStorage.getItem('fixedHeight') !== 'false';
     toggleFixedHeight(isFixed);
+    resetMessagePreferences();
+    updateAllButtonStates();
 });
 
 
