@@ -1,3 +1,18 @@
+## About this fork
+
+This is [deciduus](https://github.com/deciduus)'s contribution fork of [Agent Zero](https://github.com/agent0ai/agent-zero). For current releases and installation instructions, start with the upstream project.
+
+### Selected contributions merged upstream
+
+- [MCP integration and enhancements #395](https://github.com/agent0ai/agent-zero/pull/395), building on #332: MCP tool integration, setup documentation, and context handling
+- [Chat attachments #525](https://github.com/agent0ai/agent-zero/pull/525): centralized attachment state, drag and drop, image pasting, and persistence
+- [Environment-based settings #838](https://github.com/agent0ai/agent-zero/pull/838): applying `.env` variables to settings
+- [Project support #840](https://github.com/agent0ai/agent-zero/pull/840): project scoping for MCP, A2A, and API access
+
+These links describe contributions merged into upstream; they do not imply this fork's default branch contains every change or tracks the latest release. The upstream README is preserved below.
+
+---
+
 <div align="center">
 
 # `Agent Zero`
